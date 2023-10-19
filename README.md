@@ -13,13 +13,16 @@ https://www.atlassian.com/continuous-delivery/continuous-integration/trunk-based
 
 
 Parte 1:Infraestructura e IaC
+
     Para lograr una infraestructura necesaria para ingestar, almacenar y exponer datos se necesita:
         - Amazon SNS (Simple Notification Service), que nos permite aplicar un esquema Pub/Sub.
+        
         - Almacenamiento de Datos para Análisis: Si bien pudiéramos usar Amazon Redshift para hacer consultas analíticas complejas, se optó por recrear un pequeño DataLake en S3 y utilizar Athena para ejecutar consultas SQL sobre los datos almacenados en S3. por un tema de simplicidad y costos.
+
         - Exponer Datos: Si bien Amazon ofrece API Gateway para crear, publicar, mantener, monitorizar y proteger APIs REST, HTTP y WebSocket a cualquier escala. Al ser este un laboratorio decidí usar Lambda para crear una única función sencilla, ya que no necesito autorización con Cognito ni control de tráfico.
 
         Se incluye un módulo de IAM (Identity and Access MAnagement) para implementar las políticas de seguridad necesarias para permitir que Lambda publique en el tema SNS, que S3 permita el acceso a Athena, etc.
         
-
+        Estoy usando la región us-west-2
      
 
