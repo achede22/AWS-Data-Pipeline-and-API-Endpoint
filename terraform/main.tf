@@ -21,10 +21,7 @@ module "lambda" {
   source               = "./modules/lambda"
   lambda_function_name = var.lambda_function_name
   sns_topic_arn        = module.sns.sns_topic_arn
-}
-
-module "ecr" {
-  source          = "./modules/ecr"
-  repository_name = var.repository_name
-  scan_on_push    = var.scan_on_push
+  environment = {
+    SNS_TOPIC_ARN = module.sns.sns_topic_arn
+  }
 }

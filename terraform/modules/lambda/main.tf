@@ -6,7 +6,16 @@ resource "aws_lambda_function" "challenge" {
 
   role = aws_iam_role.challenge.arn
 
+  environment {
+    variables = var.environment
+  }
+}
 
+resource "aws_lambda_alias" "this" {
+  name             = "challenge"
+  description      = "Challenge DevSecOps/SRE" 
+  function_name    = aws_lambda_function.challenge.function_name
+  function_version = "$LATEST"
 }
 
 resource "aws_iam_role" "challenge" {
@@ -27,15 +36,7 @@ EOF
 
 }
 
-resource "aws_lambda_permission" "challenge" {
-  statement_id = "${var.lambda_function_name}_AllowExecutionFromSNS"
-
-  action        = "lambda:InvokeFunction"
-
-  function_name = aws_lambda_function.challenge.function_name
-
-  principal     = "sns.amazonaws.com"
-
-  source_arn    = var.sns_topic_arn
-
+output "lambda_function_invoke_arn" {
+  description = "The ARN to be used for invoking Lambda Function from API Gateway"
+  value       = aws_lambda_function.challenge.invoke_arn
 }
