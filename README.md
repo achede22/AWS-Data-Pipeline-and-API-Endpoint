@@ -24,5 +24,23 @@ Parte 1:Infraestructura e IaC
         Se incluye un módulo de IAM (Identity and Access MAnagement) para implementar las políticas de seguridad necesarias para permitir que Lambda publique en el tema SNS, que S3 permita el acceso a Athena, etc.
         
         Estoy usando la región us-west-2
-     
 
+        Como creé algunos elementos a mano en la consola, luego tuve que importarlos al tfstate de terraform:
+        terraform import module.athena.aws_athena_database.challenge hdbucketchallenge
+        terraform import module.lambda.aws_iam_role.challenge hd-lambda-function_execution_role
+        terraform import module.s3.aws_s3_bucket.challenge hdbucketchallenge
+        terraform import module.lambda.aws_lambda_function.challenge hd-lambda-function
+        terraform import module.lambda.aws_lambda_permission.challenge hd-lambda-function/hd-lambda-function_AllowExecutionFromSNS
+
+        Continuando con el Paso #2 decidí:
+            2.1 creé una aplicación Flask en Python que consulta datos a través de Athena y devuelva los resultados. 
+                Luego, usé AWS API Gateway para crear un endpoint HTTP que maneje las solicitudes GET a la aplicación Flask.
+
+        
+
+        Para lograr a ECR con mi docker local
+        aws ecr get-login-password | docker login \
+        --username AWS --password-stdin \
+        <Mi_ID_AWS_>.dkr.ecr.us-east-1.amazonaws.com/flask-docker-demo-app
+
+        
