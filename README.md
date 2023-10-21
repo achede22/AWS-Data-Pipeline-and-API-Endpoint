@@ -50,5 +50,8 @@ Para utilizar este sistema, sigue estos pasos:
 
 Si deseas contribuir a este proyecto, por favor, haz un fork del repositorio y crea una pull request. Asegúrate de seguir las mejores prácticas de desarrollo y de incluir tests para cualquier funcionalidad nueva.
 
+## Warning: 
+The `set-output` command is deprecated and will be disabled soon. Please upgrade to using Environment Files. For more information see: https://github.blog/changelog/2022-10-11-github-actions-deprecating-save-state-and-set-output-commands/
+
 
 # Gracias por la oportunidad

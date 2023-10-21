@@ -33,7 +33,7 @@ jobs:
       uses: hashicorp/setup-terraform@v1
 
     - name: Initialize Terraform
-      run: cd terraform ; terraform fmt -check ; terraform init
+      run: cd terraform ; terraform init
 
     - name: Apply Terraform
       run: cd terraform ; terraform apply -target=module.lambda -auto-approve

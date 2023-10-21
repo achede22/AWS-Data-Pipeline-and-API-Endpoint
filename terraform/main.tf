@@ -3,19 +3,19 @@ provider "aws" {
 }
 
 module "sns" {
-  source = "./modules/sns"
+  source         = "./modules/sns"
   sns_topic_name = var.sns_topic_name
 }
 
 module "s3" {
-  source = "./modules/s3"
+  source      = "./modules/s3"
   bucket_name = var.bucket_name
 }
 
 module "athena" {
-  source      = "./modules/athena"
+  source        = "./modules/athena"
   database_name = var.database_name
-  bucket_name = var.bucket_name
+  bucket_name   = var.bucket_name
 }
 
 module "lambda" {
