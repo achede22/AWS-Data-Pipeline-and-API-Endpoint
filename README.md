@@ -1,31 +1,25 @@
+# Challenge DevSecOps/SRE
 
-Challenge DevSecOps/SRE
+Este repositorio contiene la infraestructura de un sistema para ingestar y almacenar datos en una base de datos con el objetivo de realizar análisis avanzados. Los datos almacenados se exponen a través de una API HTTP para que puedan ser consumidos por terceros.
 
-En este repositorio se muestra la infraestructura de un sistema para ingestar y almacenar datos en una DB con la finalidad de hacer analítica avanzada. Donde los datos almacenados son expuestos mediante una API HTTP para que puedan ser consumidos por terceros.
+## Ramas y Flujo de Trabajo
 
-En las instrucciónes recibidas se solicita solicita utilizar una rama master y otra develop, sugiriendo Gitflow como práctica de desarrollo opcional, más GitFlow se considera un flujo de trabajo Git heredado o "legacy" que originalmente fue una estrategia disruptiva y novedosa para manejar las sucursales de Git. Sin Embargo Gitflow ha caído en popularidad a favor de los flujos de trabajo basados en troncos (trunk-based workflows), que actualmente se consideran mejores prácticas para el desarrollo de software continuo moderno y las prácticas de DevOps.
+Aunque se solicita utilizar una rama master y otra develop, sugerimos considerar el flujo de trabajo Trunk-based development como una práctica de desarrollo moderna y eficiente. Puedes encontrar más información sobre este flujo de trabajo en este enlace.
 
-Si bien creé la rama master y develop como se solicitó, sugiero evaluar la práctica de desarrollo Trunk-based development.
+## Infraestructura e IaC
 
-# Trunk-based development:
-https://www.atlassian.com/continuous-delivery/continuous-integration/trunk-based-development
+La infraestructura necesaria para ingerir, almacenar y exponer datos incluye:
 
+- **Amazon SNS (Simple Notification Service)**: Permite aplicar un esquema Pub/Sub.
+- **Almacenamiento de Datos para Análisis**: Aunque podríamos usar Amazon Redshift para realizar consultas analíticas complejas, hemos optado por crear un pequeño DataLake en S3 y utilizar Athena para ejecutar consultas SQL sobre los datos almacenados en S3. Esto se debe a razones de simplicidad y costos.
+- **Exposición de Datos**: Aunque Amazon ofrece API Gateway para crear, publicar, mantener, monitorizar y proteger APIs a cualquier escala, hemos decidido usar Lambda para crear una única función sencilla en este laboratorio, ya que no necesitamos autorización con Cognito ni control de tráfico.
 
+Además, se incluye un módulo de IAM (Identity and Access Management) para gestionar los permisos necesarios.
 
-Parte 1:Infraestructura e IaC
-
-    Para lograr una infraestructura necesaria para ingestar, almacenar y exponer datos se necesita:
-        - Amazon SNS (Simple Notification Service), que nos permite aplicar un esquema Pub/Sub.
-        
-        - Almacenamiento de Datos para Análisis: Si bien pudiéramos usar Amazon Redshift para hacer consultas analíticas complejas, se optó por recrear un pequeño DataLake en S3 y utilizar Athena para ejecutar consultas SQL sobre los datos almacenados en S3. por un tema de simplicidad y costos.
-
-        - Exponer Datos: Si bien Amazon ofrece API Gateway para crear, publicar, mantener, monitorizar y proteger APIs REST, HTTP y WebSocket a cualquier escala. Al ser este un laboratorio decidí usar Lambda para crear una única función sencilla, ya que no necesito autorización con Cognito ni control de tráfico.
-
-        Se incluye un módulo de IAM (Identity and Access MAnagement) para implementar las políticas de seguridad necesarias para permitir que Lambda publique en el tema SNS, que S3 permita el acceso a Athena, etc.
         
         Estoy usando la región us-west-2
 
-        Como creé algunos elementos a mano en la consola, luego tuve que importarlos al tfstate de terraform:
+    Como creé algunos elementos a mano en la consola, luego tuve que importarlos al tfstate de terraform:
         terraform import module.athena.aws_athena_database.challenge hdbucketchallenge
         terraform import module.lambda.aws_iam_role.challenge hd-lambda-function_execution_role
         terraform import module.s3.aws_s3_bucket.challenge hdbucketchallenge
@@ -38,9 +32,23 @@ Parte 1:Infraestructura e IaC
 
         
 
-        Para lograr a ECR con mi docker local
-        aws ecr get-login-password | docker login \
-        --username AWS --password-stdin \
-        <Mi_ID_AWS_>.dkr.ecr.us-east-1.amazonaws.com/flask-docker-demo-app
+## Cómo usar
 
-        
+Para utilizar este sistema, sigue estos pasos:
+
+1. **Configura tu entorno AWS**: Asegúrate de tener una cuenta de AWS y de haber configurado tus credenciales de AWS en tu entorno local. Puedes hacer esto utilizando el comando `aws configure` del AWS CLI.
+
+2. **Clona este repositorio**: Puedes clonar este repositorio utilizando el comando `git clone`.
+
+3. **Instala las dependencias**: Este proyecto utiliza varias bibliotecas de Python,  utiliza el comando `pip install -r requirements.txt` para instalarlas.
+
+4. **Despliega la infraestructura**: Puedes desplegar la infraestructura utilizando el comando `terraform apply`. Asegúrate de estar en el directorio correcto cuando ejecutes este comando.
+
+5. **Utiliza la API**: Una vez que la infraestructura esté desplegada.
+
+## Contribuir
+
+Si deseas contribuir a este proyecto, por favor, haz un fork del repositorio y crea una pull request. Asegúrate de seguir las mejores prácticas de desarrollo y de incluir tests para cualquier funcionalidad nueva.
+
+
+# Gracias por la oportunidad
