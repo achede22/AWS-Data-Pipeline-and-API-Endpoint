@@ -1,7 +1,3 @@
-import sys
-import sys
-!{sys.executable} -m pip install boto3
-
 import boto3
 from flask import Flask, jsonify
 
