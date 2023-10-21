@@ -3,15 +3,9 @@ name: Deploy to AWS
 on:
   push:
     branches:
-      - master
+      - main
       - develop
   workflow_dispatch:
-
-
-on:
-  push:
-    branches:
-      - main
 
 jobs:
   deploy:
