@@ -14,6 +14,7 @@ module "s3" {
 
 module "athena" {
   source      = "./modules/athena"
+  database_name = var.database_name
   bucket_name = var.bucket_name
 }
 
