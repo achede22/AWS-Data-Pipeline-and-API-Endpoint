@@ -31,7 +31,7 @@ jobs:
 
     - name: Zip the application
       run: |
-        zip deployment-package.zip app/get_passengers.py
+        zip deployment-package.zip app/lambda_function.py
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
