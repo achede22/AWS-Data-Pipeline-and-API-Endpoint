@@ -25,4 +25,11 @@ module "lambda" {
   environment = {
     SNS_TOPIC_ARN = module.sns.sns_topic_arn
   }
+
+}
+
+module "api_gateway" {
+  source                         = "./modules/api_gateway"
+  api_name                       = var.api_name
+  lambda_invoke_arn              = module.lambda.lambda_function_invoke_arn
 }

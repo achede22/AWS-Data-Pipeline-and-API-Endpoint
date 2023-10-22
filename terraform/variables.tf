@@ -25,7 +25,12 @@ variable "sns_topic_name" {
 }
 
 variable "environment" {
-  description = "Las variables de entorno para la función Lambda"
-  type        = map(string)
-  default     = {}
+  description = "el entorno de la aplicacion"
+  type        = string
+  default     = "develop"
+}
+
+variable "api_name" {
+  description = "HTTP API name"
+  type        = string
 }
