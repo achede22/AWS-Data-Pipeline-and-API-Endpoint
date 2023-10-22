@@ -3,6 +3,7 @@ resource "aws_lambda_function" "challenge" {
   filename      = "deployment-package.zip"
   handler       = "lambda_function.lambda_handler"
   runtime       = "python3.8"
+  timeout       = 300 #athena can take a while to run
 
   role = aws_iam_role.challenge.arn
 

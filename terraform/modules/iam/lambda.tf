@@ -29,6 +29,10 @@ resource "aws_iam_role_policy" "challenge" {
                 "logs:CreateLogGroup",
                 "logs:CreateLogStream",
                 "logs:PutLogEvents"
+                "athena:StartQueryExecution",
+                "athena:GetQueryExecution",
+                "athena:GetQueryResults",
+                "glue:GetTable"
             ],
             "Effect": "Allow",
             "Resource": "*"
@@ -52,3 +56,9 @@ resource "aws_iam_role_policy" "challenge" {
 EOF
 
 }
+
+
+athena start query execution
+get query execution
+get query result
+glue get table
