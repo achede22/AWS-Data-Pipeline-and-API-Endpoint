@@ -20,11 +20,13 @@ Además, se incluye un módulo de IAM (Identity and Access Management) para gest
 Estoy usando la región us-west-2
 
 Como creé algunos elementos a mano en la consola, luego tuve que importarlos al tfstate de terraform:
+```
         terraform import module.athena.aws_athena_database.challenge hdbucketchallenge
         terraform import module.lambda.aws_iam_role.challenge hd-lambda-function_execution_role
         terraform import module.s3.aws_s3_bucket.challenge hdbucketchallenge
         terraform import module.lambda.aws_lambda_function.challenge hd-lambda-function
         terraform import module.lambda.aws_lambda_permission.challenge hd-lambda-function/hd-lambda-function_AllowExecutionFromSNS
+```
 
 Continuando con el Paso #2 decidí:
     2.1 creé una aplicación Flask en Python que consulta datos a través de Athena y devuelva los resultados. 
@@ -53,18 +55,11 @@ Si deseas contribuir a este proyecto, por favor, haz un fork del repositorio y c
 
 ```
 HTTP/1.1 200 OK
-
 Date=Sun, 22 Oct 2023 06:25:11 GMT
-
 Content-Type=text/plain; charset=utf-8
-
 Content-Length=1175
-
 Connection=keep-alive
-
 Apigw-Requestid=NML7LjL5vHcESyg=
-
-
 
 {"passenger_id": {"0": 1, "1": 2, "2": 3, "3": 4, "4": 5, "5": 6, "6": 7, "7": 8, "8": 9, "9": 10, "10": 11, "11": 12, "12": 13, "13": 14, "14": 15, "15": 16, "16": 17, "17": 18, "18": 19, "19": 20}, "flight_id": {"0": 1001, "1": 1002, "2": 1003, "3": 1004, "4": 1005, "5": 1006, "6": 1007, "7": 1008, "8": 1009, "9": 1010, "10": 1011, "11": 1012, "12": 1013, "13": 1014, "14": 1015, "15": 1016, "16": 1017, "17": 1018, "18": 1019, "19": 1020}, "name": {"0": "Juan Perez", "1": "Maria Rodriguez", "2": "Pedro Gonzalez", "3": "Lucia Fernandez", "4": "Ricardo Lopez", "5": "Sofia Torres", "6": "Gabriel Ramirez", "7": "Carmen Morales", "8": "Rafael Medina", "9": "Laura Ortega", "10": "Eduardo Castro", "11": "Teresa Guzman", "12": "Javier Pe\u00f1a", "13": "Susana Rios", "14": "Fernando Reyes", "15": "Rosa Mendoza", "16": "Gustavo Silva", "17": "Marta Romero", "18": "Luis Cordero", "19": "Alicia Delgado"}, "seat_number": {"0": "12A", "1": "12B", "2": "15A", "3": "15B", "4": "16A", "5": "16B", "6": "17A", "7": "17B", "8": "18A", "9": "18B", "10": "19A", "11": "19B", "12": "20A", "13": "20B", "14": "21A", "15": "21B", "16": "22A", "17": "22B", "18": "23A", "19": "23B"}}
 ```
