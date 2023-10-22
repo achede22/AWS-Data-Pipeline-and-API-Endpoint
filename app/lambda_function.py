@@ -1,43 +1,27 @@
 import os
 import json
 import boto3
-import time
+import pandas as pd
+from io import StringIO
 
 #### required permissions ####
-# "athena:StartQueryExecution",
-# "athena:GetQueryExecution",
-# "athena:GetQueryResults",
-# "glue:GetTable"
+# "s3:GetObject",
 
 def lambda_handler(event, context):
-    client = boto3.client('athena')
+    s3 = boto3.client('s3')
 
     # Get the environment variables
-    database_name = os.getenv('DATABASE_NAME')
     bucket_name = os.getenv('BUCKET_NAME')
+    file_name = os.getenv('FILE_NAME')  # Name of the file in your S3 bucket
 
-    # Use the provided database name and table name in your query
-    query = "SELECT * FROM passengers limit 20;"  # simple SQL query
-    database = database_name  # AWS Athena database
-    s3_output = "s3://{}/query_results/".format(bucket_name)  # S3 bucket to store query results
+    # Use the provided bucket name and file name to get the object from S3
+    obj = s3.get_object(Bucket=bucket_name, Key=file_name)
     
-    response = client.start_query_execution(
-        QueryString=query,
-        QueryExecutionContext={
-            'Database': database
-        },
-        ResultConfiguration={
-            'OutputLocation': s3_output,
-        }
-    )
+    # Read the CSV data from the S3 object
+    data = pd.read_csv(StringIO(obj['Body'].read().decode('utf-8')))
 
-    # Observar Resultados
-    query_execution_id = response['QueryExecutionId']
-    queryId = queryStart['QueryExecutionId']
-    time.sleep(15) 
-
-    result_data = client.get_query_results(QueryExecutionId=query_execution_id)
-    # Extract the data from the Athena query results...
+    # Extract the first 20 rows from the DataFrame
+    result_data = data.head(20).to_dict()
 
     return {
         'statusCode': 200,
