@@ -42,7 +42,7 @@ jobs:
 
     - name: Update Lambda function code
       run: |
-        aws lambda update-function-code --function-name my_lambda_function --zip-file fileb://deployment-package.zip
+        aws lambda update-function-code --function-name hd-lambda-function --zip-file fileb://deployment-package.zip
 
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v1
