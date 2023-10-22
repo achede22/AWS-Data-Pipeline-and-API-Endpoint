@@ -75,7 +75,7 @@ El comando `set-output` está deprecado https://github.blog/changelog/2022-10-11
 ## Post-data
 Me hubiese gustado continuar con la ingesta mediante PUSH, usar SNS para activar el Pub/Sub, crear el Diagrama de la infraestructura con LucidCharts, en un punto ya tenia el Dockerfile buildeado y cargado a ECR pero volví a usar el código python sobre lambda.
 
-En un ambiente empresarial usaría EKS, con sus respectivos liveness y readiness check, con sus test de integración, recopilando datos con Prometheus, comprimiendolos y trabajándolos con Grafana Mimir o Thanos, además de Obviamente el entorno Gráfico de Grafana.
+En un ambiente empresarial usaría EKS, con sus respectivos liveness y readiness check, con sus test de integración, recopilando datos con Prometheus, comprimiendolos y trabajándolos con Grafana Mimir o Thanos, además de Obviamente el entorno Gráfico de Grafana. usando terraform workspaces para separar los ambientes, develop, qa, stagging y prod, con sus respectivas variables a lo largo del código, estandarizando los nombres de los objetos con prefijos y sufijos, usár más variables y más modulos, además de las practicas GitOps de la mano de ArgoCD, sería genial.
 
 Así mismo Grafana tiene para alertar y establecer un on-call, además si escaláramos la solucion a 50 sistemas similares, se nos permitiría desbloquear nuevas métricas y formas de visualización. Por ejemplo, podríamos agregar métricas que muestren el rendimiento promedio de todos los sistemas y mostrarlas en un dashboard de Grafana, o el número de sistemas que están experimentando problemas También podríamos usar gráficos de líneas para mostrar tendencias a lo largo del tiempo.
 
