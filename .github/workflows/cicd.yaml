@@ -31,7 +31,7 @@ jobs:
 
     - name: Zip the application
       run: |
-        zip deployment-package.zip app/flask.py
+        zip deployment-package.zip app/get_passengers.py
 
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v1

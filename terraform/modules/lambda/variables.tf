@@ -19,3 +19,13 @@ variable "region" {
   type        = string
   default     = "us-west-2" # replace with your default region
 }
+
+variable "database_name" {
+  description = "Athena database name"
+  type        = string
+}
+
+variable "bucket_name" {
+  description = "S3 bucket name"
+  type        = string
+}

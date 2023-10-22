@@ -22,6 +22,8 @@ module "lambda" {
   source               = "./modules/lambda"
   lambda_function_name = var.lambda_function_name
   sns_topic_arn        = module.sns.sns_topic_arn
+  database_name        = var.database_name
+  bucket_name          = var.bucket_name
   environment = {
     SNS_TOPIC_ARN = module.sns.sns_topic_arn
   }

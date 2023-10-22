@@ -6,8 +6,13 @@ resource "aws_lambda_function" "challenge" {
 
   role = aws_iam_role.challenge.arn
 
+# python uses these variables inside Lambda function
   environment {
-    variables = var.environment
+    variables = {
+      DATABASE_NAME = var.database_name
+      BUCKET_NAME = var.bucket_name
+      SNS_TOPIC_ARN = var.sns_topic_arn
+    }
   }
 }
 
